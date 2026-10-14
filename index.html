@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Boost Sign-Up</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Oswald:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="banner">
+    <img src="images/logo.png" alt="" class="logo" onerror="this.style.display='none'">
+    <h1>BOOST SIGN-UP</h1>
+  </header>
+
+  <main class="week" id="week" aria-label="Weekly sign-up calendar"></main>
+
+  <dialog id="dialog">
+    <form id="form" method="dialog">
+      <h2 id="dialogTitle">Sign up</h2>
+      <label>Name
+        <input type="text" id="name" required maxlength="40" autocomplete="name">
+      </label>
+      <label>Start time
+        <select id="start"></select>
+      </label>
+      <label>How long
+        <select id="length">
+          <option value="30">30 minutes</option> 
+          <option value="45">45 minutes</option>
+          <option value="60" selected>1 hour</option>
+          <option value="75">1 hour 15 minutes</option>
+          <option value="90">1 hour 30 minutes</option>
+          <option value="105">1 hour 45 minutes</option>
+          <option value="120">2 hours</option>
+        </select>
+      </label>
+      <label>Short size
+        <select id="size">
+          <option>XS</option>
+          <option selected>S</option><option>M</option><option>L</option>
+        </select>
+      </label>
+      <p class="error" id="error" role="alert"></p>
+      <div class="actions">
+        <button type="button" id="cancel" class="ghost">Cancel</button>
+        <button type="submit" class="primary">Save sign-up</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="script.js"></script>
+</body>
+</html>

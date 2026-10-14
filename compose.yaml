@@ -1,0 +1,22 @@
+services:
+  app:
+    build: ./app
+    restart: unless-stopped
+    volumes:
+      # SignupServlet stores boost.db in <catalina.base>/boost-data
+      - boost-data:/usr/local/tomcat/boost-data
+    ports:
+      # Only reachable from the server itself (for testing). The public path is the tunnel.
+      - "127.0.0.1:8080:8080"
+
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    restart: unless-stopped
+    command: tunnel --no-autoupdate run
+    environment:
+      - TUNNEL_TOKEN=${TUNNEL_TOKEN}
+    depends_on:
+      - app
+
+volumes:
+  boost-data:

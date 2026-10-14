@@ -1,0 +1,232 @@
+:root {
+  --navy: #19324f;
+  --gold: #f7d44c;
+  --grey: #c0c0c0;
+  --ink: #111;
+  --block: #2d5a8a;
+  --hour: 56px; /* height of one hour on the calendar */
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: "Oswald", "Arial Narrow", sans-serif;
+  background: #fff;
+  color: var(--ink);
+}
+
+.banner {
+  background: var(--navy);
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  padding: 0.75rem 2.5rem;
+}
+.logo { height: 90px; width: auto; }
+.banner h1 {
+  margin: 0;
+  font-family: "Archivo Black", Impact, sans-serif;
+  font-size: clamp(2rem, 6vw, 4.5rem);
+  letter-spacing: 0.02em;
+  color: var(--gold);
+  flex: 1;
+  text-align: center;
+}
+
+/* ---------- Calendar ---------- */
+.week {
+  display: grid;
+  grid-template-columns: 3.5rem repeat(7, minmax(0, 1fr));
+  max-width: 1500px;
+  margin: 0 auto;
+  border-top: 3px solid var(--ink);
+}
+
+.corner, .day-head {
+  background: var(--grey);
+  border-bottom: 3px solid var(--ink);
+  border-right: 3px solid var(--ink);
+  height: 64px;
+}
+.corner { border-left: 3px solid var(--ink); }
+
+.day-head {
+  font: inherit;
+  font-size: 1.3rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-top: 0;
+  border-left: 0;
+}
+.day-head:hover { background: #d6d6d6; }
+.day-head:focus-visible { outline: 3px solid var(--gold); outline-offset: -6px; }
+
+.times {
+  border-left: 3px solid var(--ink);
+  border-right: 3px solid var(--ink);
+  position: relative;
+}
+.times span {
+  position: absolute;
+  right: 6px;
+  transform: translateY(-50%);
+  font-size: 0.75rem;
+  color: #555;
+}
+
+.day-col {
+  position: relative;
+  border-right: 3px solid var(--ink);
+  cursor: pointer;
+  background-image: repeating-linear-gradient(
+    to bottom, transparent 0, transparent calc(var(--hour) - 1px),
+    #e3e3e3 calc(var(--hour) - 1px), #e3e3e3 var(--hour));
+}
+.day-col:hover { background-color: #fafaf2; }
+
+.slot {
+  position: absolute;
+  left: 4px; right: 4px;
+  background: var(--navy);
+  color: #fff;
+  border-left: 5px solid var(--gold);
+  border-radius: 3px;
+  padding: 4px 8px;
+  overflow: hidden;
+  cursor: pointer;
+  font-size: 0.9rem;
+  line-height: 1.25;
+  text-align: left;
+  font-family: inherit;
+  border-top: 0; border-right: 0; border-bottom: 0;
+}
+.slot strong { display: block; font-weight: 500; font-size: 1rem; }
+.slot small { color: var(--gold); font-size: 0.8rem; }
+.slot:hover { background: #24466c; }
+.slot:focus-visible { outline: 3px solid var(--gold); }
+
+/* ---------- Dialog ---------- */
+dialog {
+  border: 3px solid var(--ink);
+  border-radius: 6px;
+  padding: 0;
+  width: min(92vw, 380px);
+  font-family: inherit;
+}
+dialog::backdrop { background: rgba(25, 50, 79, 0.6); }
+form { padding: 1.25rem 1.5rem 1.5rem; display: grid; gap: 0.9rem; }
+form h2 { margin: 0; font-family: "Archivo Black", Impact, sans-serif; color: var(--navy); font-size: 1.4rem; }
+label { display: grid; gap: 0.25rem; font-size: 1rem; }
+input, select {
+  font: inherit;
+  padding: 0.5rem 0.6rem;
+  border: 2px solid var(--ink);
+  border-radius: 4px;
+  background: #fff;
+}
+input:focus-visible, select:focus-visible { outline: 3px solid var(--gold); }
+.error { color: #b00020; margin: 0; min-height: 1.2em; font-size: 0.95rem; }
+.actions { display: flex; justify-content: flex-end; gap: 0.6rem; }
+button.primary, button.ghost, button.danger {
+  font: inherit; padding: 0.55rem 1rem; border-radius: 4px; cursor: pointer; border: 2px solid var(--ink);
+}
+.primary { background: var(--gold); }
+.primary:hover { background: #ffe173; }
+.ghost { background: #fff; }
+.danger { background: #fff; color: #b00020; border-color: #b00020; margin-right: auto; }
+
+@media (max-width: 700px) {
+  .banner { padding: 0.5rem 1rem; gap: 1rem; }
+  .logo { height: 50px; }
+  .week { grid-template-columns: 2.6rem repeat(7, minmax(0, 1fr)); }
+  .day-head { font-size: 0.7rem; }
+  .slot { font-size: 0.7rem; padding: 2px 4px; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .slot, .day-head { transition: background 0.15s; }
+}
+
+/* ---------- Shorts wash tracker ---------- */
+.tracker {
+  max-width: 1500px;
+  margin: 2.5rem auto 3rem;
+  padding: 0 1rem;
+}
+.tracker h2 {
+  font-family: "Archivo Black", Impact, sans-serif;
+  color: var(--navy);
+  font-size: 1.6rem;
+  margin: 0 0 1rem;
+}
+.tracker table {
+  border-collapse: collapse;
+  width: 100%;
+  max-width: 520px;
+  border: 3px solid var(--ink);
+}
+.tracker th {
+  background: var(--grey);
+  text-align: left;
+  font-weight: 500;
+}
+.tracker th, .tracker td {
+  padding: 0.5rem 0.9rem;
+  border-bottom: 2px solid var(--ink);
+}
+.tracker td:nth-child(2) { font-size: 1.3rem; width: 5rem; }
+.tracker td.high { background: var(--gold); font-weight: 500; }
+.tracker button { padding: 0.3rem 0.7rem; font-size: 0.9rem; }
+.tracker button:disabled { opacity: 0.4; cursor: default; }
+
+/* ---------- Two-week layout ---------- */
+.week-title {
+  max-width: 1500px;
+  margin: 1.5rem auto 0.75rem;
+  padding: 0 1rem;
+  font-family: "Archivo Black", Impact, sans-serif;
+  color: var(--navy);
+  font-size: 1.5rem;
+}
+#week2 { margin-bottom: 1rem; }
+
+.day-head span { display: block; }
+.day-head small { display: block; font-size: 0.8rem; color: #444; }
+.day-head:disabled { cursor: not-allowed; background: #d9d9d9; }
+
+.week.locked { position: relative; }
+.week.locked .day-col { cursor: not-allowed; background-color: #f2f2f2; }
+.week.locked .slot { cursor: not-allowed; }
+.lock-overlay {
+  position: absolute;
+  inset: 64px 0 0 0;
+  background: rgba(255, 255, 255, 0.78);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 8rem;
+  text-align: center;
+  font-size: 1.3rem;
+  z-index: 5;
+}
+.lock-overlay p {
+  margin: 0;
+  background: var(--navy);
+  color: #fff;
+  border: 3px solid var(--gold);
+  border-radius: 6px;
+  padding: 1rem 1.5rem;
+}
+.lock-overlay strong { color: var(--gold); font-weight: 500; font-size: 1.5rem; }
+
+/* ---------- Server status ---------- */
+.status-bar {
+  max-width: 1500px;
+  margin: 0.75rem auto 0;
+  padding: 0.6rem 1rem;
+  background: #fde8e8;
+  border: 2px solid #b00020;
+  color: #b00020;
+  font-size: 1rem;
+}
